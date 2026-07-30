@@ -1,13 +1,13 @@
-name: Build ImmortalWrt Firmware
+name: Build
 
 on:
-  workflow_dispatch:   # 手动触发，也可以加 push/schedule 等触发方式
+  workflow_dispatch:
 
 env:
   IMAGEBUILDER_URL: https://downloads.immortalwrt.org/releases/25.12.1/targets/x86/64/immortalwrt-imagebuilder-25.12.1-x86-64.Linux-x86_64.tar.zst
   EXTRA_PACKAGES: luci luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn luci-i18n-package-manager-zh-cn luci-i18n-daed-zh-cn curl nano qemu-ga
   PROFILE: generic
-  ROOTFS_PARTSIZE: 1024   # 单位 MB，rootfs 可用磁盘大小 = 1GB
+  ROOTFS_PARTSIZE: 1024
 
 jobs:
   build:
@@ -98,5 +98,5 @@ jobs:
       - name: 上传固件产物
         uses: actions/upload-artifact@v6
         with:
-          name: immortalwrt-firmware
+          name: openwrt
           path: dist/*
