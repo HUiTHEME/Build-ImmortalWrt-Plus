@@ -36,7 +36,7 @@ jobs:
           mkdir -p imagebuilder/files/etc/uci-defaults
           cat > imagebuilder/files/etc/uci-defaults/99-custom-network <<'EOF'
           #!/bin/sh
-          uci set network.lan.ipaddr='10.0.0.8/24'
+          uci set network.lan.ipaddr='10.0.0.11/24'
           uci set network.lan.gateway='10.0.0.1'
           uci -q delete network.lan.dns
           uci add_list network.lan.dns='10.0.0.1'
