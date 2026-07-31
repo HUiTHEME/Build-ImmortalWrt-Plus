@@ -1,13 +1,13 @@
-name: Build
+name: Build ImmortalWrt Firmware
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:   # 手动触发，也可以加 push/schedule 等触发方式
 
 env:
   IMAGEBUILDER_URL: https://downloads.immortalwrt.org/releases/25.12.1/targets/x86/64/immortalwrt-imagebuilder-25.12.1-x86-64.Linux-x86_64.tar.zst
   EXTRA_PACKAGES: luci luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn luci-i18n-package-manager-zh-cn luci-i18n-daed-zh-cn curl nano qemu-ga
   PROFILE: generic
-  ROOTFS_PARTSIZE: 1024
+  ROOTFS_PARTSIZE: 1024   # 单位 MB，rootfs 可用磁盘大小 = 1GB
 
 jobs:
   build:
@@ -76,6 +76,10 @@ jobs:
           echo "识别到的自定义包：$CUSTOM_PKGS"
           echo "CUSTOM_PACKAGES=$CUSTOM_PKGS" >> "$GITHUB_ENV"
 
+          # 本地生成的索引未经官方私钥签名，apk 默认会拒绝当作"不可信"来源。
+          # 给实际执行安装的 apk add 命令加上 --allow-untrusted，允许其被使用。
+          sed -i 's/\$(APK) add /$(APK) add --allow-untrusted /' Makefile
+
       - name: 编译固件
         run: |
           cd imagebuilder
@@ -98,5 +102,5 @@ jobs:
       - name: 上传固件产物
         uses: actions/upload-artifact@v6
         with:
-          name: openwrt
+          name: immortalwrt-firmware
           path: dist/*
