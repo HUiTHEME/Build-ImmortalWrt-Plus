@@ -1,6 +1,7 @@
-# Build-ImmortalWrt-Plus
+# 自由构建OpenWrt
 
-项目特别简单，你只需要修改 【.github/workflows/build.yml】文件里的几处信息，即可实现自由生产。
+### 项目特别简单，你只需要修改 【.github/workflows/build.yml】文件里的几处信息，即可实现自由生产。
+
 
 1、IMAGEBUILDER_URL：值来自：https://downloads.immortalwrt.org/releases/25.12.1/targets/x86/64/ 在此页面，你直接搜索【.zst】就可以找到这个【imagebuilder】，为什么讲出来，因为方便你们去理解，并且将来这个zst的最新包在哪里，怎么获取。
 
